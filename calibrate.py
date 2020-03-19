@@ -20,7 +20,7 @@ def binary_binning(probs, labels):
         function: a function that calibrates confidence from classifier output
     """
     confidences = probs
-    bins = np.linspace(0, 1, num=15, endpoint=False)
+    bins = np.linspace(0, 1, num=3, endpoint=False)
     idxs = np.digitize(confidences, bins) - 1
     cal_values = []
 
@@ -28,7 +28,7 @@ def binary_binning(probs, labels):
         bin_idx = (idxs == i)
         bin_size = np.sum(bin_idx)
         if bin_size == 0:
-            cal_values.append(0)
+            cal_values.append(bins[i])
         else:
             cal_values.append(np.sum(labels[bin_idx])/bin_size)
 
